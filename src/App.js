@@ -1,30 +1,30 @@
 import './App.scss';
-import { Route, Switch, NavLink } from 'react-router-dom'
-import UserForm from './pages/UserForm';
-import UserList from './pages/UserList';
+import { Redirect, Route, Switch } from 'react-router-dom'
+import UserForm from './pages/UserForm/UserForm';
+import UserList from './pages/UserList/UserList';
+import NavHeader from './components/NavHeader/NavHeader';
+import ErrorHandler from './components/ErrorHandler/ErrorHandler';
+import UserDetail from './pages/UserDetail/UserDetail';
 
 function App() {
   return (
     <>
-    <header>
-      <div className="warper">
-        <div className="logo-ares">
-          <h2>MyOnlineMentor</h2>
-        </div>
-        <nav>
-          <ul>
-            <li><NavLink activeClassName="active" to="/users" exact>Home</NavLink></li>
-            <li><NavLink activeClassName="active" to="/user-form" exact>Add User</NavLink></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+   <NavHeader />
     <Switch>
+      <Route path="/" exact>
+        <Redirect to="/users" />
+      </Route>
       <Route path="/users" exact>
         <UserList />
       </Route>
+      <Route path="/users/:userId">
+        <UserDetail />
+      </Route>
       <Route path="/user-form" exact>
         <UserForm />
+      </Route>
+      <Route path="*">
+        <ErrorHandler />
       </Route>
     </Switch>
     </>
